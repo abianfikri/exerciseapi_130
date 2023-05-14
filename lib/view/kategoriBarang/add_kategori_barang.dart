@@ -16,7 +16,6 @@ class AddKategoriBarang extends StatefulWidget {
 class _AddKategoriBarangState extends State<AddKategoriBarang> {
   final kategoriBarangController = KategoriBarangController();
   String? nama;
-  int? id;
 
   void addKategoriBarang() async {
     KategoriBarangModel kategoriBarang = KategoriBarangModel(nama: nama!);
