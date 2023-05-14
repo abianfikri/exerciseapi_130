@@ -38,8 +38,7 @@ class KategoriBarangController {
 
   Future deleteData(int id) async {
     try {
-      var result =
-          await http.post(Uri.parse("${apiUrl}barang/deleteKB/$id"));
+      var result = await http.post(Uri.parse("${apiUrl}barang/deleteKB/$id"));
       if (result.statusCode == 200) {
         return true;
       }
@@ -47,6 +46,22 @@ class KategoriBarangController {
     } catch (e) {
       print(e.toString());
       throw Exception('Gagal menghapus data kategori barang');
+    }
+  }
+
+  Future updateDataKategori(int id, String nama) async {
+    try {
+      var result = await http.post(Uri.parse("${apiUrl}barang/updateKB/$id"),
+          body: {"nama_kategori_barang": nama});
+
+      if (result.statusCode == 200) {
+        print("Data berhasil di update");
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e.toString());
+      throw Exception('Gagal mengupdate data kategori barang');
     }
   }
 }
