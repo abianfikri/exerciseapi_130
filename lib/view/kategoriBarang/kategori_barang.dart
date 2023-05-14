@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:practice_api/controller/kategori_barang_controller.dart';
 import 'package:practice_api/model/kategori_barang_model.dart';
 import 'package:practice_api/view/kategoriBarang/add_kategori_barang.dart';
+import 'package:practice_api/view/kategoriBarang/edit_kategori_barang.dart';
 
 class KategoriBarang extends StatefulWidget {
   const KategoriBarang({super.key});
@@ -30,6 +31,12 @@ class _KategoriBarangState extends State<KategoriBarang> {
     });
   }
 
+  void deleteDataBarang(KategoriBarangModel kategoriBarang) {
+    setState(() {
+      listKategoriBarang.remove(kategoriBarang);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +50,29 @@ class _KategoriBarangState extends State<KategoriBarang> {
             return Card(
               child: ListTile(
                 title: Text(listKategoriBarang[index].nama),
-                trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.edit),
+                    ),
+                    IconButton(
+                        onPressed: () async {
+                          kategoriBarangController
+                              .deleteData(listKategoriBarang[index].id)
+                              .then((value) {
+                            setState(() {
+                              listKategoriBarang.removeAt(index);
+                            });
+                          });
+
+                          var snackBar = const SnackBar(
+                              content: Text('Data Berhasil Dihapus'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                        icon: const Icon(Icons.delete, color: Colors.red))
+                  ],
                 ),
               ),
             );
